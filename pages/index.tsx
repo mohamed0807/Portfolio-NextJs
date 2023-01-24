@@ -1,6 +1,5 @@
 import Head from "next/head";
 import Image from "next/image";
-import useSWR from "swr";
 import Link from "next/link";
 import { Inter } from "@next/font/google";
 // import styles from "../styles/Home.module.css";
@@ -22,12 +21,11 @@ const inter = Inter({ subsets: ["latin"] });
 
 type Props = {
   pageInfo: PageInfo;
-  // experiences: Experience[];
   skills: Skill[];
   projects: Project[];
   socials: Social[];
 };
-const fetcher = (url: any) => fetch(url).then((res) => res.json());
+
 
 export default function Home({
   pageInfo,
@@ -36,7 +34,6 @@ export default function Home({
   projects,
   socials,
 }: Props) {
-  const { data, error } = useSWR("/api/staticdata", fetcher);
 
   return (
     <>
@@ -81,18 +78,14 @@ export default function Home({
   );
 }
 
-export const getStaticProps: GetStaticProps<Props> = async (context: any) => {
-  // console.log("Context", context);
+export const getStaticProps: GetStaticProps<Props> = async () => {
   const pageInfo: PageInfo = await fetchPageInfo();
-  // const experiences: Experience[] = await fetchExperience();
   const skills: Skill[] = await fetchSkill();
   const projects: Project[] = await fetchProject();
   const socials: Social[] = await fetchSocial();
-  // console.log("PageInfo:", pageInfo);
   return {
     props: {
       pageInfo,
-      // experiences,
       skills,
       projects,
       socials,
