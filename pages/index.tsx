@@ -77,8 +77,8 @@ export default function Home({
 }
 
 export const getStaticProps: GetStaticProps<Props> = async () => {
-  const pageInfo: PageInfo = await fetchPageInfo();
   const skills: Skill[] = await fetchSkill();
+  const pageInfo: PageInfo = await fetchPageInfo();
   const projects: Project[] = await fetchProject();
   const socials: Social[] = await fetchSocial();
   return {
